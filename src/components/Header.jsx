@@ -74,13 +74,16 @@ const Header = () => {
                     ) : (
                       <img
                         className="rounded-full"
-                        src={`http://localhost:3000/uploads/avatar/${state?.author?.avatar}`}
+                        src={`http://localhost:3000/uploads/avatar/${
+                          state?.author?.avatar ?? auth.user.avatar
+                        }`}
                       />
                     )}
                   </div>
                   <Link to="/profile">
                     <span className="text-white ml-2">
-                      {state?.author?.firstName} {state?.author?.lastName}
+                      {state?.author?.firstName ?? auth.user.firstName}{" "}
+                      {state?.author?.lastName ?? auth.user.lastName}
                     </span>
                   </Link>
                 </li>

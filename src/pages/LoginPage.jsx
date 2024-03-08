@@ -29,7 +29,6 @@ const LoginPage = () => {
           const authToken = token.accessToken;
           const refreshToken = token.refreshToken;
 
-          console.log(authToken);
           setAuth({ user, authToken, refreshToken });
           navigate("/profile");
           toast.success(`Login successfully with ${formData.email}`);

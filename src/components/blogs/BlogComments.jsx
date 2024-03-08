@@ -62,7 +62,9 @@ const BlogComments = ({ blog, updatedBlog }) => {
                 ) : (
                   <img
                     className="rounded-full"
-                    src={`http://localhost:3000/uploads/avatar/${state?.author?.avatar}`}
+                    src={`http://localhost:3000/uploads/avatar/${
+                      state?.author?.avatar ?? auth.user.avatar
+                    }`}
                     alt="avatar"
                   />
                 )}

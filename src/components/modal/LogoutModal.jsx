@@ -7,6 +7,7 @@ export default function LogoutModal({ onClose }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.clear();
     setAuth({});
     navigate("/login");
     onClose(true);
