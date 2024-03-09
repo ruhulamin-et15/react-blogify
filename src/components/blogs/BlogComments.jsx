@@ -16,9 +16,6 @@ const BlogComments = ({ blog, updatedBlog }) => {
   const navigate = useNavigate();
   const lastCommentRef = useRef(null);
 
-  const initialName =
-    state?.author?.firstName && state?.author?.firstName.charAt(0);
-
   const { handleSubmit, register, setValue } = useForm();
 
   const submitComment = async (formData) => {
@@ -59,8 +56,8 @@ const BlogComments = ({ blog, updatedBlog }) => {
           <div className="flex items -center space-x-4">
             <div className="avater-img bg-indigo-600 text-white">
               <>
-                {state?.author?.avatar === null ? (
-                  <span className>{initialName}</span>
+                {auth.user.avatar === null ? (
+                  <span>{auth.user.firstName.charAt(0)}</span>
                 ) : (
                   <img
                     className="rounded-full"
@@ -113,7 +110,9 @@ const BlogComments = ({ blog, updatedBlog }) => {
                     onClick={() => handleProfileDetails(comment)}
                     className="rounded-full cursor-pointer"
                     src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
-                      comment?.author?.avatar
+                      auth.user.id === comment?.author?.id
+                        ? auth.user.avatar
+                        : comment?.author?.avatar
                     }`}
                   />
                 )}
