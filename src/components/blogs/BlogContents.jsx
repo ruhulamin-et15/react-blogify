@@ -4,7 +4,7 @@ import useBlog from "../../hooks/useBlog";
 import useProfile from "../../hooks/useProfile";
 import BlogCard from "./BlogCard";
 
-const blogsPerPage = 5;
+const blogsPerPage = 10;
 const BlogContents = () => {
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(1);
