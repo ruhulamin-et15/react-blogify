@@ -10,6 +10,7 @@ const BlogContents = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
+  console.log(blogs);
 
   const { state: profile } = useProfile();
   const { state } = useBlog();
@@ -59,7 +60,9 @@ const BlogContents = () => {
   return (
     <div className="space-y-3 md:col-span-5">
       {allBlogs &&
-        allBlogs.map((blog, index) => <BlogCard blog={blog} key={index} />)}
+        allBlogs.map((blog, index) => (
+          <BlogCard blog={blog} key={index} setBlogs={setBlogs} />
+        ))}
 
       {hasMore ? (
         <div ref={loaderRef}>Loading more blogs...</div>

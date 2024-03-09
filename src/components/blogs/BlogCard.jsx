@@ -5,15 +5,16 @@ import { actions } from "../../actions";
 import ThreeDots from "../../assets/icons/3dots.svg";
 import DeleteIcon from "../../assets/icons/delete.svg";
 import EditIcon from "../../assets/icons/edit.svg";
+import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import useProfile from "../../hooks/useProfile";
 import { formatRelativeTime } from "../../utils/date-time";
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog, setBlogs }) => {
   const [showAction, setShowAction] = useState(false);
-  const { state, dispatch } = useProfile();
+  const { dispatch } = useProfile();
   const { api } = useAxios();
-  const isMe = state?.author?.id === blog?.author?.id;
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const initialName =
     blog?.author?.firstName && blog?.author?.firstName.charAt(0);
@@ -50,8 +51,11 @@ const BlogCard = ({ blog }) => {
           type: actions.profile.BLOG_DELETED,
           data: blog?.id,
         });
-        setShowAction(false);
+        setBlogs((prevBlogs) =>
+          prevBlogs.filter((item) => item.id !== blog.id)
+        );
         toast.success(response.data.message);
+        setShowAction(false);
       }
     } catch (error) {
       console.log(error);
@@ -77,7 +81,6 @@ const BlogCard = ({ blog }) => {
           {blog?.content.substring(0, 200)}
           {blog?.content?.length > 200 && " ..."}
         </p>
-        {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
             <div
@@ -111,7 +114,7 @@ const BlogCard = ({ blog }) => {
             <span>{blog?.likes?.length} Likes</span>
           </div>
         </div>
-        {isMe && (
+        {auth?.user?.id === blog?.author?.id && (
           <div className="absolute right-0 top-0">
             <button onClick={handleShowAction}>
               <img src={ThreeDots} alt="3dots of Action" />
