@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -14,6 +14,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
   const [showDeleteModal, setShowDeleteModal] = useState();
   const renderPortal = usePortal();
   const navigate = useNavigate();
+  const lastCommentRef = useRef(null);
 
   const initialName =
     state?.author?.firstName && state?.author?.firstName.charAt(0);
@@ -33,6 +34,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
         };
         updatedBlog(updateBlog);
         setValue("content", "");
+        lastCommentRef.current.scrollIntoView({ behavior: "smooth" });
       }
     } catch (error) {
       console.log(error);
@@ -140,6 +142,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
               )}
             </div>
           ))}
+        <div ref={lastCommentRef}></div>
       </div>
     </section>
   );

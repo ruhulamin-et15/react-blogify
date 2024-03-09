@@ -48,7 +48,7 @@ const BlogDetailsPage = () => {
       }
     };
     fetchBlogDetails();
-  }, [api, id, isMe, auth?.user?.id]);
+  }, [api, id, isMe, auth.user.id]);
 
   const navigate = useNavigate();
 
