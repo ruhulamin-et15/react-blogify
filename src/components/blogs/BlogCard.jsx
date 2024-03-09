@@ -7,7 +7,7 @@ import DeleteIcon from "../../assets/icons/delete.svg";
 import EditIcon from "../../assets/icons/edit.svg";
 import useAxios from "../../hooks/useAxios";
 import useProfile from "../../hooks/useProfile";
-import { shortFormatDate } from "../../utils/date-utils";
+import { formatRelativeTime } from "../../utils/date-time";
 
 const BlogCard = ({ blog }) => {
   const [showAction, setShowAction] = useState(false);
@@ -103,7 +103,7 @@ const BlogCard = ({ blog }) => {
                 </button>
               </h5>
               <div className="flex items-center text-xs text-slate-700">
-                <span>{shortFormatDate(blog?.createdAt)}</span>
+                <span>{formatRelativeTime(blog?.createdAt)}</span>
               </div>
             </div>
           </div>

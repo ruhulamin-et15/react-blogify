@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { shortFormatDate } from "../../utils/date-utils";
+import { formatRelativeTime } from "../../utils/date-time";
 
 const BlogDetails = ({ blog }) => {
   const initialName =
@@ -43,7 +43,7 @@ const BlogDetails = ({ blog }) => {
             </h5>
           </div>
           <span className="text-sm text-slate-700 dot">
-            {shortFormatDate(blog?.createdAt)}
+            {formatRelativeTime(blog?.createdAt)}
           </span>
           <span className="text-sm text-slate-700 dot">
             {blog?.likes?.length} Likes
