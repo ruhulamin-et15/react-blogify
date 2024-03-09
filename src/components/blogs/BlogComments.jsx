@@ -110,7 +110,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
                     onClick={() => handleProfileDetails(comment)}
                     className="rounded-full cursor-pointer"
                     src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
-                      auth.user.id === comment?.author?.id
+                      auth?.user?.id === comment?.author?.id
                         ? auth.user.avatar
                         : comment?.author?.avatar
                     }`}
