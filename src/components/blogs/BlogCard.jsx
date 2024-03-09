@@ -42,7 +42,7 @@ const BlogCard = ({ blog }) => {
     dispatch({ type: actions.profile.DATA_FETCHING });
     try {
       const response = await api.delete(
-        `http://localhost:3000/blogs/${blog?.id}`
+        `${import.meta.env.VITE_BASE_URL}/blogs/${blog?.id}`
       );
       console.log(response);
       if (response.status === 200) {
@@ -66,7 +66,7 @@ const BlogCard = ({ blog }) => {
     <div onClick={handleBlogClick} className="blog-card">
       <img
         className="blog-thumb"
-        src={`http://localhost:3000/uploads/blog/${blog?.thumbnail}`}
+        src={`${import.meta.env.VITE_BASE_URL}/uploads/blog/${blog?.thumbnail}`}
         alt="blog"
       />
       <div className="mt-2 relative">
@@ -89,7 +89,9 @@ const BlogCard = ({ blog }) => {
               ) : (
                 <img
                   className="rounded-full"
-                  src={`http://localhost:3000/uploads/avatar/${blog?.author?.avatar}`}
+                  src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
+                    blog?.author?.avatar
+                  }`}
                   alt="avatar"
                 />
               )}

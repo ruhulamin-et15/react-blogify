@@ -15,7 +15,7 @@ const SearchBlogsModal = ({ onClose }) => {
     const fetchData = async () => {
       try {
         const response = await api.get(
-          `http://localhost:3000/search?q=${debouncedSearchTerm}`
+          `${import.meta.env.VITE_BASE_URL}/search?q=${debouncedSearchTerm}`
         );
         if (response.status === 200) {
           setSearchResults(response.data);
@@ -76,7 +76,9 @@ const SearchBlogsModal = ({ onClose }) => {
                   >
                     <img
                       className="h-28 object-contain max-w-[170px]"
-                      src={`http://localhost:3000/uploads/blog/${result?.thumbnail}`}
+                      src={`${import.meta.env.VITE_BASE_URL}/uploads/blog/${
+                        result?.thumbnail
+                      }`}
                       alt={result?.title}
                     />
                     <div className="mt-2">

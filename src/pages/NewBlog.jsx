@@ -49,7 +49,7 @@ const NewBlog = () => {
     dispatch({ type: actions.blog.DATA_FETCHING });
     try {
       const response = await api.post(
-        `http://localhost:3000/blogs`,
+        `${import.meta.env.VITE_BASE_URL}/blogs`,
         formDataObj
       );
 

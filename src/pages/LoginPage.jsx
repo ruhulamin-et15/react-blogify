@@ -19,7 +19,7 @@ const LoginPage = () => {
   const submitForm = async (formData) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/auth/login`,
+        `${import.meta.env.VITE_BASE_URL}/auth/login`,
         formData
       );
 

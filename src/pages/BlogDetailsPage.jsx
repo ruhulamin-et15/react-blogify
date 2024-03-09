@@ -31,7 +31,9 @@ const BlogDetailsPage = () => {
     const fetchBlogDetails = async () => {
       setLoading(true);
       try {
-        const res = await api.get(`http://localhost:3000/blogs/${id}`);
+        const res = await api.get(
+          `${import.meta.env.VITE_BASE_URL}/blogs/${id}`
+        );
         setBlog(res.data);
         setFavourite(res.data.isFavourite);
         if (res.data.likes) {
@@ -59,7 +61,9 @@ const BlogDetailsPage = () => {
       return;
     }
     try {
-      const response = await api.post(`http://localhost:3000/blogs/${id}/like`);
+      const response = await api.post(
+        `${import.meta.env.VITE_BASE_URL}/blogs/${id}/like`
+      );
       if (response.status === 200) {
         const updatedBlog = {
           ...blog,
@@ -80,7 +84,7 @@ const BlogDetailsPage = () => {
         toast.warning("Please Login First For Add to Favourite");
       }
       const response = await api.patch(
-        `http://localhost:3000/blogs/${id}/favourite`
+        `${import.meta.env.VITE_BASE_URL}/blogs/${id}/favourite`
       );
       if (response.status === 200) {
         const updatedBlog = {

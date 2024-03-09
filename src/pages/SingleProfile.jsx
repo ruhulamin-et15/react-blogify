@@ -10,7 +10,9 @@ const SingleProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/profile/${id}`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/profile/${id}`
+        );
         setUserInfo(response.data);
       } catch (error) {
         console.log(error);
@@ -30,7 +32,9 @@ const SingleProfile = () => {
               ) : (
                 <img
                   className="rounded-full"
-                  src={`http://localhost:3000/uploads/avatar/${userInfo?.avatar}`}
+                  src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
+                    userInfo?.avatar
+                  }`}
                 />
               )}
             </div>

@@ -8,7 +8,9 @@ const FavouriteBlogs = () => {
 
   useEffect(() => {
     const fetchFavourites = async () => {
-      const response = await api.get(`http://localhost:3000/blogs/favourites`);
+      const response = await api.get(
+        `${import.meta.env.VITE_BASE_URL}/blogs/favourites`
+      );
       setFavBlogs(response.data.blogs);
     };
     fetchFavourites();

@@ -24,7 +24,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
   const submitComment = async (formData) => {
     try {
       const response = await api.post(
-        `http://localhost:3000/blogs/${blog?.id}/comment`,
+        `${import.meta.env.VITE_BASE_URL}/blogs/${blog?.id}/comment`,
         formData
       );
       if (response.status === 200) {
@@ -64,7 +64,7 @@ const BlogComments = ({ blog, updatedBlog }) => {
                 ) : (
                   <img
                     className="rounded-full"
-                    src={`http://localhost:3000/uploads/avatar/${
+                    src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
                       state?.author?.avatar ?? auth.user.avatar
                     }`}
                     alt="avatar"
@@ -112,7 +112,9 @@ const BlogComments = ({ blog, updatedBlog }) => {
                   <img
                     onClick={() => handleProfileDetails(comment)}
                     className="rounded-full cursor-pointer"
-                    src={`http://localhost:3000/uploads/avatar/${comment?.author?.avatar}`}
+                    src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
+                      comment?.author?.avatar
+                    }`}
                   />
                 )}
               </div>

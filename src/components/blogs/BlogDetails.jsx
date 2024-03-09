@@ -28,7 +28,9 @@ const BlogDetails = ({ blog }) => {
               ) : (
                 <img
                   className="rounded-full"
-                  src={`http://localhost:3000/uploads/avatar/${blog?.author?.avatar}`}
+                  src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
+                    blog?.author?.avatar
+                  }`}
                   alt="avatar"
                 />
               )}
@@ -49,7 +51,9 @@ const BlogDetails = ({ blog }) => {
         </div>
         <img
           className="mx-auto w-full md:w-8/12 object-cover h-80 md:h-96"
-          src={`http://localhost:3000/uploads/blog/${blog?.thumbnail}`}
+          src={`${import.meta.env.VITE_BASE_URL}/uploads/blog/${
+            blog?.thumbnail
+          }`}
           alt="thumbnail"
         />
         <ul className="tags">

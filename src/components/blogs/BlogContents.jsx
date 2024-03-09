@@ -21,7 +21,9 @@ const BlogContents = () => {
     const fetchBlogs = async () => {
       try {
         const response = await api.get(
-          `http://localhost:3000/blogs?limit=${blogsPerPage}&page=${page}`
+          `${
+            import.meta.env.VITE_BASE_URL
+          }/blogs?limit=${blogsPerPage}&page=${page}`
         );
         if (response.data.blogs.length === 0) {
           setHasMore(false);

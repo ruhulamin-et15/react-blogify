@@ -74,7 +74,7 @@ const Header = () => {
                     ) : (
                       <img
                         className="rounded-full"
-                        src={`http://localhost:3000/uploads/avatar/${
+                        src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
                           state?.author?.avatar ?? auth.user.avatar
                         }`}
                       />

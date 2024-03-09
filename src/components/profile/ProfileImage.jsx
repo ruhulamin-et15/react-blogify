@@ -19,7 +19,7 @@ const ProfileImage = () => {
       }
 
       const response = await api.post(
-        `http://localhost:3000/profile/avatar`,
+        `${import.meta.env.VITE_BASE_URL}/profile/avatar`,
         formData
       );
 
@@ -53,7 +53,9 @@ const ProfileImage = () => {
       ) : (
         <img
           className="rounded-full"
-          src={`http://localhost:3000/uploads/avatar/${state?.author?.avatar}`}
+          src={`${import.meta.env.VITE_BASE_URL}/uploads/avatar/${
+            state?.author?.avatar
+          }`}
         />
       )}
       <form>

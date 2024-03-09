@@ -11,7 +11,7 @@ export default function DeleteCommentModal({
   const deleteComment = async () => {
     try {
       const response = await api.delete(
-        `http://localhost:3000/blogs/${blog.id}/comment/${commentId}`
+        `${import.meta.env.VITE_BASE_URL}/blogs/${blog.id}/comment/${commentId}`
       );
       if (response.status === 200) {
         const updatedComments = blog?.comments?.filter(

@@ -10,7 +10,9 @@ const PopularBlogs = () => {
     const fetchedBlogs = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/blogs/popular`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/blogs/popular`
+        );
         setPopularBlogs(response.data.blogs);
         setLoading(false);
       } catch (error) {

@@ -22,7 +22,7 @@ const EditBlog = () => {
   });
 
   const [imagePreview, setImagePreview] = useState(
-    `http://localhost:3000/uploads/blog/${blog?.thumbnail}`
+    `${import.meta.env.VITE_BASE_URL}/uploads/blog/${blog?.thumbnail}`
   );
 
   const updateImageDisplay = async () => {
@@ -33,7 +33,7 @@ const EditBlog = () => {
         formData.append("thumbnail", file);
       }
       const response = await api.patch(
-        `http://localhost:3000/blogs/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/blogs/${id}`,
         formData
       );
       if (response.status === 200) {
@@ -68,7 +68,7 @@ const EditBlog = () => {
     dispatch({ type: actions.blog.DATA_FETCHING });
     try {
       const response = await api.patch(
-        `http://localhost:3000/blogs/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/blogs/${id}`,
         editBlog
       );
       if (response.status === 200) {

@@ -14,9 +14,12 @@ const Bio = () => {
   const handleBioEdit = async () => {
     dispatch({ type: actions.profile.DATA_FETCHING });
     try {
-      const response = await api.patch(`http://localhost:3000/profile`, {
-        bio,
-      });
+      const response = await api.patch(
+        `${import.meta.env.VITE_BASE_URL}/profile`,
+        {
+          bio,
+        }
+      );
       console.log(response.data.user.bio);
       if (response.status === 200) {
         dispatch({
