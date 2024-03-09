@@ -28,6 +28,16 @@ const ProfileImage = () => {
           type: actions.profile.IMAGE_UPDATED,
           data: response.data.user,
         });
+
+        const authFromLocalStorage = JSON.parse(localStorage.getItem("auth"));
+        const updatedUser = {
+          ...authFromLocalStorage.user,
+          avatar: response.data.user.avatar,
+        };
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({ ...authFromLocalStorage, user: updatedUser })
+        );
       }
     } catch (error) {
       console.log(error);

@@ -23,9 +23,6 @@ const Header = () => {
     setShowLogout(!showLogout);
   };
 
-  const initialName =
-    state?.author?.firstName && state?.author?.firstName.charAt(0);
-
   return (
     <header>
       {showLogout &&
@@ -69,8 +66,8 @@ const Header = () => {
                 </li>
                 <li className="flex items-center">
                   <div className="avater-img bg-orange-600 text-white">
-                    {state?.author?.avatar === null ? (
-                      <span className>{initialName}</span>
+                    {auth.user.avatar === null ? (
+                      <span className>{auth.user.firstName.charAt(0)}</span>
                     ) : (
                       <img
                         className="rounded-full"
@@ -82,8 +79,7 @@ const Header = () => {
                   </div>
                   <Link to="/profile">
                     <span className="text-white ml-2">
-                      {state?.author?.firstName ?? auth.user.firstName}{" "}
-                      {state?.author?.lastName ?? auth.user.lastName}
+                      {auth.user.firstName} {auth.user.lastName}
                     </span>
                   </Link>
                 </li>

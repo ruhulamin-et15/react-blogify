@@ -11,15 +11,15 @@ import ProfileProvider from "./providers/ProfileProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BlogProvider>
-      <AuthProvider>
-        <ProfileProvider>
+    <AuthProvider>
+      <ProfileProvider>
+        <BlogProvider>
           <Router>
             <App />
             <ToastContainer position="bottom-right" />
           </Router>
-        </ProfileProvider>
-      </AuthProvider>
-    </BlogProvider>
+        </BlogProvider>
+      </ProfileProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
