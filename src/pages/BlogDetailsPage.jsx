@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import CommentIcon from "../assets/icons/comment.svg";
@@ -16,6 +16,7 @@ const BlogDetailsPage = () => {
   const { id } = useParams();
   const { auth } = useAuth();
   const [blog, setBlog] = useState();
+  const commentRef = useRef(null);
 
   const updatedBlog = (updatedComments) => {
     setBlog(updatedComments);
@@ -99,6 +100,10 @@ const BlogDetailsPage = () => {
     }
   };
 
+  const scroolToComments = () => {
+    commentRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -126,13 +131,14 @@ const BlogDetailsPage = () => {
             )}
           </li>
           <p>
-            <li>
+            <li onClick={scroolToComments}>
               <img src={CommentIcon} alt="Comments" />
               <span>{blog?.comments?.length}</span>
             </li>
           </p>
         </ul>
       </div>
+      <div ref={commentRef}></div>
     </main>
   );
 };
