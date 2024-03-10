@@ -10,11 +10,8 @@ const BlogContents = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
-  console.log(blogs);
-
   const { state: profile } = useProfile();
   const { state } = useBlog();
-
   const allBlogs = blogs ?? state?.blogs ?? profile?.blogs;
   const { api } = useAxios();
 
