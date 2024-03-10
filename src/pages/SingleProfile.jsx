@@ -6,20 +6,27 @@ import BlogCard from "../components/blogs/BlogCard";
 const SingleProfile = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/profile/${id}`
         );
         setUserInfo(response.data);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchProfile();
   }, [id]);
+
+  if (loading) {
+    return <div className="text-center">Loading Profile Details...</div>;
+  }
 
   return (
     <main className="mx-auto max-w-[1020px] py-8">
