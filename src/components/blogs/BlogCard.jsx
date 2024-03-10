@@ -19,7 +19,7 @@ const BlogCard = ({ blog, setBlogs }) => {
     blog?.author?.firstName && blog?.author?.firstName.charAt(0);
 
   const handleBlogClick = () => {
-    navigate(`/blog-details/${blog.id}`);
+    navigate(`/blog-details/${blog?.id}`);
   };
 
   const handleSingleProfile = (event) => {
@@ -54,8 +54,7 @@ const BlogCard = ({ blog, setBlogs }) => {
           <span>{blog?.title}</span>
         </h3>
         <p className="mb-6 text-base text-slate-500 mt-1">
-          {blog?.content.substring(0, 200)}
-          {blog?.content?.length > 200 && " ..."}
+          {blog?.content.substring(0, 250)}
         </p>
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
