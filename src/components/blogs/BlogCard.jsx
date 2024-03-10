@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { actions } from "../../actions";
 import ThreeDots from "../../assets/icons/3dots.svg";
 import DeleteIcon from "../../assets/icons/delete.svg";
 import EditIcon from "../../assets/icons/edit.svg";
 import { useAuth } from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
-import useProfile from "../../hooks/useProfile";
+
+import usePortal from "../../hooks/usePortal";
 import { formatRelativeTime } from "../../utils/date-time";
+import DeleteBlogModal from "../modal/DeleteBlogModal";
 
 const BlogCard = ({ blog, setBlogs }) => {
   const [showAction, setShowAction] = useState(false);
-  const { dispatch } = useProfile();
-  const { api } = useAxios();
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const renderPortal = usePortal();
   const initialName =
     blog?.author?.firstName && blog?.author?.firstName.charAt(0);
 
@@ -38,32 +37,9 @@ const BlogCard = ({ blog, setBlogs }) => {
     navigate(`/edit-blog/${blog?.id}`, { state: { blog } });
   };
 
-  const handleDeleteBlog = async (event, blog) => {
-    event.stopPropagation();
-    dispatch({ type: actions.profile.DATA_FETCHING });
-    try {
-      const response = await api.delete(
-        `${import.meta.env.VITE_BASE_URL}/blogs/${blog?.id}`
-      );
-      console.log(response);
-      if (response.status === 200) {
-        dispatch({
-          type: actions.profile.BLOG_DELETED,
-          data: blog?.id,
-        });
-        setBlogs((prevBlogs) =>
-          prevBlogs.filter((item) => item.id !== blog.id)
-        );
-        toast.success(response.data.message);
-        setShowAction(false);
-      }
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: actions.profile.DATA_FETCH_ERROR,
-        error: error.message,
-      });
-    }
+  const handleDeleteModalShow = (e) => {
+    e.stopPropagation();
+    setShowDeleteModal(true);
   };
 
   return (
@@ -116,6 +92,15 @@ const BlogCard = ({ blog, setBlogs }) => {
         </div>
         {auth?.user?.id === blog?.author?.id && (
           <div className="absolute right-0 top-0">
+            {showDeleteModal &&
+              renderPortal(
+                <DeleteBlogModal
+                  setBlogs={setBlogs}
+                  blog={blog}
+                  setShowAction={setShowAction}
+                  onClose={() => setShowDeleteModal(false)}
+                />
+              )}
             <button onClick={handleShowAction}>
               <img src={ThreeDots} alt="3dots of Action" />
             </button>
@@ -129,7 +114,7 @@ const BlogCard = ({ blog, setBlogs }) => {
                   Edit
                 </button>
                 <button
-                  onClick={(event) => handleDeleteBlog(event, blog)}
+                  onClick={(e) => handleDeleteModalShow(e)}
                   className="action-menu-item hover:text-red-500"
                 >
                   <img src={DeleteIcon} alt="Delete" />
