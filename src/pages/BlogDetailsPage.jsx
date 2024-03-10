@@ -109,7 +109,7 @@ const BlogDetailsPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Blog Details Loading...</div>;
   }
 
   return (

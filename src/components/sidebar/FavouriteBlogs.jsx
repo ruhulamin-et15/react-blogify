@@ -5,13 +5,20 @@ import useAxios from "../../hooks/useAxios";
 const FavouriteBlogs = () => {
   const [favBlogs, setFavBlogs] = useState([]);
   const { api } = useAxios();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchFavourites = async () => {
-      const response = await api.get(
-        `${import.meta.env.VITE_BASE_URL}/blogs/favourites`
-      );
-      setFavBlogs(response.data.blogs);
+      setLoading(true);
+      try {
+        const response = await api.get(
+          `${import.meta.env.VITE_BASE_URL}/blogs/favourites`
+        );
+        setFavBlogs(response.data.blogs);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchFavourites();
   }, [api]);
@@ -27,27 +34,36 @@ const FavouriteBlogs = () => {
       <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
         Your Favourites ❤️
       </h3>
-      {favBlogs?.length !== 0 ? (
-        <ul className="space-y-5 my-5">
-          {favBlogs &&
-            favBlogs.map((favBlog) => (
-              <li onClick={() => handleDetails(favBlog.id)} key={favBlog.id}>
-                <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
-                  {favBlog.title}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {favBlog?.tags?.split(",").map((tag, index) => (
-                    <React.Fragment key={index}>
-                      {index > 0 && ", "}
-                      {"#" + tag.trim()}
-                    </React.Fragment>
-                  ))}
-                </p>
-              </li>
-            ))}
-        </ul>
+      {loading ? (
+        <h2>Loading Favourites Blogs...</h2>
       ) : (
-        <p className="mt-4">Your Favourites List is Empty</p>
+        <>
+          {favBlogs?.length !== 0 ? (
+            <ul className="space-y-5 my-5">
+              {favBlogs &&
+                favBlogs.map((favBlog) => (
+                  <li
+                    onClick={() => handleDetails(favBlog.id)}
+                    key={favBlog.id}
+                  >
+                    <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
+                      {favBlog.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm">
+                      {favBlog?.tags?.split(",").map((tag, index) => (
+                        <React.Fragment key={index}>
+                          {index > 0 && ", "}
+                          {"#" + tag.trim()}
+                        </React.Fragment>
+                      ))}
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          ) : (
+            <p className="mt-4">Your Favourites List is Empty</p>
+          )}
+        </>
       )}
     </div>
   );
