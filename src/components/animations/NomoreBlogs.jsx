@@ -7,7 +7,7 @@ const NoMoreBlogs = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}
-      className="text-2xl ms-5 flex justify-center mt-4"
+      className="text-xl italic ms-5 flex justify-center mt-4 border border-gray-600 items-center rounded-lg h-[50px]"
     >
       {sentence.split(" ").map((word, index) => (
         <motion.span

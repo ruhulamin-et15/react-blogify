@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
@@ -61,8 +62,20 @@ const FavouriteBlogs = () => {
                 ))}
             </ul>
           ) : (
-            <div className="border border-gray-600 h-[50px] mt-4 flex flex-col items-center  justify-center rounded-md">
-              <p className="mx-auto">Your Favourites List is Empty!</p>
+            <div className="border border-gray-600 h-[50px] mt-4 flex flex-col items-center justify-center rounded-md">
+              <motion.p
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse", // Reverse the animation on repeat
+                }}
+                className="mx-auto"
+              >
+                Your Favourites List is Empty!
+              </motion.p>
             </div>
           )}
         </>
