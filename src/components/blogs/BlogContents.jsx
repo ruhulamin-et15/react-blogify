@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import useBlog from "../../hooks/useBlog";
 import useProfile from "../../hooks/useProfile";
+import NoMoreBlogs from "../animations/NomoreBlogs";
 import BlogCard from "./BlogCard";
 
 const blogsPerPage = 10;
@@ -64,7 +65,7 @@ const BlogContents = () => {
       {hasMore ? (
         <div ref={loaderRef}>Loading more blogs...</div>
       ) : (
-        <div className="text-xl ms-5">No More Blogs</div>
+        <NoMoreBlogs />
       )}
     </div>
   );
