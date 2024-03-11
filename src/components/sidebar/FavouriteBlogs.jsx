@@ -61,7 +61,9 @@ const FavouriteBlogs = () => {
                 ))}
             </ul>
           ) : (
-            <p className="mt-4">Your Favourites List is Empty</p>
+            <div className="border border-gray-600 h-[50px] mt-4 flex flex-col items-center  justify-center rounded-md">
+              <p className="mx-auto">Your Favourites List is Empty!</p>
+            </div>
           )}
         </>
       )}

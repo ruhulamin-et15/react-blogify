@@ -7,8 +7,8 @@ const MyBlogs = () => {
   return (
     <>
       {state?.author?.blogs?.length === 0 ? (
-        <div className="flex flex-col items-center justify-center border mt-2 h-[150px] w-3/4 mx-auto rounded-md">
-          <p className="text-center text-xl">
+        <div className="flex flex-col items-center justify-center border border-gray-600 mt-2 h-[150px] w-3/4 mx-auto rounded-md">
+          <p className="mx-auto text-xl">
             No Blogs! Please{" "}
             <Link className="text-green-500 underline" to="/create-blog">
               Create
