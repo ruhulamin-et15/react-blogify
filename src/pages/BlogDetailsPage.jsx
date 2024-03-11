@@ -13,7 +13,6 @@ import useAxios from "../hooks/useAxios";
 import useTitle from "../hooks/useTitle";
 
 const BlogDetailsPage = () => {
-  useTitle("Blog Details | Learn with Sumit");
   const { api } = useAxios();
   const { id } = useParams();
   const { auth } = useAuth();
@@ -28,6 +27,12 @@ const BlogDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(true);
   const [favourite, setFavourite] = useState(false);
+
+  useTitle(
+    loading
+      ? "Loading... | Learn with Sumit"
+      : "Blog Details | Learn with Sumit"
+  );
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
