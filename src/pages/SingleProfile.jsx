@@ -7,12 +7,8 @@ import useTitle from "../hooks/useTitle";
 const SingleProfile = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState(null);
+  useTitle(`${userInfo?.firstName} ${userInfo?.lastName} | Learn with Sumit`);
   const [loading, setLoading] = useState(false);
-  useTitle(
-    loading
-      ? `Loading... | Learn with Sumit`
-      : `${userInfo?.firstName} ${userInfo?.lastName} | Learn with Sumit`
-  );
 
   useEffect(() => {
     const fetchProfile = async () => {
