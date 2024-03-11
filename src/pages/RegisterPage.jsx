@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Field from "../components/Field";
+import useTitle from "../hooks/useTitle";
 
 const RegisterPage = () => {
+  useTitle("Registration | Learn with Sumit");
   const navigate = useNavigate();
 
   const {

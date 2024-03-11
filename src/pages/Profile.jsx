@@ -6,9 +6,13 @@ import ProfileInfo from "../components/profile/ProfileInfo";
 import { useAuth } from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import useProfile from "../hooks/useProfile";
+import useTitle from "../hooks/useTitle";
 
 const Profile = () => {
   const { auth } = useAuth();
+  useTitle(
+    `${auth?.user?.firstName} ${auth?.user?.lastName} | Learn with Sumit`
+  );
   const { api } = useAxios();
   const { dispatch } = useProfile();
 

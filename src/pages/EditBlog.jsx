@@ -6,8 +6,10 @@ import { actions } from "../actions";
 import Field from "../components/Field";
 import useAxios from "../hooks/useAxios";
 import useBlog from "../hooks/useBlog";
+import useTitle from "../hooks/useTitle";
 
 const EditBlog = () => {
+  useTitle("Edit Blog | Learn with Sumit");
   const location = useLocation();
   const { blog } = location.state;
   const { id } = useParams();

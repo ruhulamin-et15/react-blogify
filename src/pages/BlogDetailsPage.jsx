@@ -10,8 +10,10 @@ import BlogComments from "../components/blogs/BlogComments";
 import BlogDetails from "../components/blogs/BlogDetails";
 import { useAuth } from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
+import useTitle from "../hooks/useTitle";
 
 const BlogDetailsPage = () => {
+  useTitle("Blog Details | Learn with Sumit");
   const { api } = useAxios();
   const { id } = useParams();
   const { auth } = useAuth();

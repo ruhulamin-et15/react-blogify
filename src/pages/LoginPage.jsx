@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Field from "../components/Field";
 import { useAuth } from "../hooks/useAuth";
+import useTitle from "../hooks/useTitle";
 
 const LoginPage = () => {
+  useTitle("Login Page | Learn with Sumit");
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();

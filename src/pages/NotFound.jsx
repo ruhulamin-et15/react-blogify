@@ -1,4 +1,7 @@
+import useTitle from "../hooks/useTitle";
+
 const NotFound = () => {
+  useTitle("Not Found - 404 | Learn with Sumit");
   const handleGoBack = () => {
     window.history.back();
   };

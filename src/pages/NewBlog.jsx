@@ -6,8 +6,10 @@ import { actions } from "../actions";
 import Field from "../components/Field";
 import useAxios from "../hooks/useAxios";
 import useBlog from "../hooks/useBlog";
+import useTitle from "../hooks/useTitle";
 
 const NewBlog = () => {
+  useTitle("Blog Create | Learn with Sumit");
   const imageUploadRef = useRef();
   const { dispatch } = useBlog();
   const { api } = useAxios();

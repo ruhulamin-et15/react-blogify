@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogCard from "../components/blogs/BlogCard";
+import useTitle from "../hooks/useTitle";
 
 const SingleProfile = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState(null);
+  useTitle(`${userInfo?.firstName} ${userInfo?.lastName} | Learn with Sumit`);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
