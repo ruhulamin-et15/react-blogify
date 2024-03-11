@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { actions } from "../../actions";
 import useAxios from "../../hooks/useAxios";
@@ -6,6 +7,7 @@ import useProfile from "../../hooks/useProfile";
 export default function DeleteBlogModal({ onClose, setBlogs, blog }) {
   const { dispatch } = useProfile();
   const { api } = useAxios();
+  const location = useLocation();
 
   const handleDeleteBlog = async (e) => {
     e.stopPropagation();
@@ -14,15 +16,17 @@ export default function DeleteBlogModal({ onClose, setBlogs, blog }) {
       const response = await api.delete(
         `${import.meta.env.VITE_BASE_URL}/blogs/${blog?.id}`
       );
-      console.log(response);
       if (response.status === 200) {
         dispatch({
           type: actions.profile.BLOG_DELETED,
           data: blog?.id,
         });
-        setBlogs((prevBlogs) =>
-          prevBlogs.filter((item) => item.id !== blog.id)
-        );
+
+        if (location.pathname !== "/profile") {
+          setBlogs((prevBlogs) =>
+            prevBlogs.filter((item) => item.id !== blog.id)
+          );
+        }
         toast.success(response.data.message);
       }
     } catch (error) {
