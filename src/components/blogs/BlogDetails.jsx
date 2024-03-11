@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import { formatRelativeTime } from "../../utils/date-time";
 
 const BlogDetails = ({ blog }) => {
+  const { auth } = useAuth();
   const initialName =
     blog?.author?.firstName && blog?.author?.firstName.charAt(0);
 
@@ -10,7 +12,11 @@ const BlogDetails = ({ blog }) => {
   const navigate = useNavigate();
 
   const handleProfileDetails = (blog) => {
-    navigate(`/profile/${blog?.author?.id}`);
+    if (auth?.user?.id === blog?.author?.id) {
+      navigate(`/profile`);
+    } else {
+      navigate(`/profile/${blog?.author?.id}`);
+    }
   };
 
   return (

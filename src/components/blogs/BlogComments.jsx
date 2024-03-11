@@ -43,7 +43,11 @@ const BlogComments = ({ blog, updatedBlog }) => {
   };
 
   const handleProfileDetails = (blog) => {
-    navigate(`/profile/${blog?.author?.id}`);
+    if (auth?.user?.id === blog?.author?.id) {
+      navigate(`/profile`);
+    } else {
+      navigate(`/profile/${blog?.author?.id}`);
+    }
   };
 
   return (
