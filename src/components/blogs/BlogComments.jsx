@@ -100,9 +100,13 @@ const BlogComments = ({ blog, updatedBlog }) => {
           </div>
         ) : (
           <div className="flex items -center space-x-4">
-            {showLoginModal && (
-              <LoginRegisterModal onClose={() => setShowLoginModal(false)} />
-            )}
+            {showLoginModal &&
+              renderPortal(
+                <LoginRegisterModal
+                  onClose={() => setShowLoginModal(false)}
+                  message="comment this post"
+                />
+              )}
             <div className="w-full">
               <textarea
                 className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"

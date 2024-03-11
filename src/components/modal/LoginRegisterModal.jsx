@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function LoginRegisterModal({ onClose }) {
+export default function LoginRegisterModal({ onClose, message }) {
   const navigate = useNavigate();
 
   const loginPage = () => {
@@ -50,7 +50,7 @@ export default function LoginRegisterModal({ onClose }) {
             />
           </svg>
           <h3 className="mb-5 text-lg font-normal text-white dark:text-gray-400 text-center">
-            Please Login/Register first for comment this post.
+            Please Login/Register first for {message}
           </h3>
           <div>
             <button

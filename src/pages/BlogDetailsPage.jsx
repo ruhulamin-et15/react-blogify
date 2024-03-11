@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import CommentIcon from "../assets/icons/comment.svg";
 import HeartFillIcon from "../assets/icons/heart-filled.svg";
@@ -8,8 +8,10 @@ import LikeIcon from "../assets/icons/like.svg";
 import LikedIcon from "../assets/icons/liked.svg";
 import BlogComments from "../components/blogs/BlogComments";
 import BlogDetails from "../components/blogs/BlogDetails";
+import LoginRegisterModal from "../components/modal/LoginRegisterModal";
 import { useAuth } from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
+import usePortal from "../hooks/usePortal";
 import useTitle from "../hooks/useTitle";
 
 const BlogDetailsPage = () => {
@@ -19,6 +21,7 @@ const BlogDetailsPage = () => {
   const { auth } = useAuth();
   const [blog, setBlog] = useState();
   const commentRef = useRef(null);
+  const renderPortal = usePortal();
 
   const updatedBlog = (updatedComments) => {
     setBlog(updatedComments);
@@ -28,6 +31,7 @@ const BlogDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(true);
   const [favourite, setFavourite] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -54,12 +58,9 @@ const BlogDetailsPage = () => {
     fetchBlogDetails();
   }, [api, id, isMe, auth?.user?.id]);
 
-  const navigate = useNavigate();
-
   const handleLike = async () => {
     if (!isMe) {
-      navigate("/login");
-      toast.warning("Please login first to like the blog.");
+      setShowLoginModal(true);
       return;
     }
     try {
@@ -82,8 +83,7 @@ const BlogDetailsPage = () => {
   const handleFavourite = async () => {
     try {
       if (!isMe) {
-        navigate("/login");
-        toast.warning("Please Login First For Add to Favourite");
+        setShowLoginModal(true);
       }
       const response = await api.patch(
         `${import.meta.env.VITE_BASE_URL}/blogs/${id}/favourite`
@@ -116,6 +116,13 @@ const BlogDetailsPage = () => {
 
   return (
     <main>
+      {showLoginModal &&
+        renderPortal(
+          <LoginRegisterModal
+            onClose={() => setShowLoginModal(false)}
+            message="like/favourite this post"
+          />
+        )}
       <BlogDetails blog={blog} />
 
       <BlogComments blog={blog} updatedBlog={updatedBlog} />
