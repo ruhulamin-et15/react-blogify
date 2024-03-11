@@ -57,9 +57,10 @@ const BlogCard = ({ blog, setBlogs }) => {
         <h3 className="text-slate-300 text-xl lg:text-2xl">
           <span>{blog?.title}</span>
         </h3>
-        <p className="mb-6 text-base text-slate-500 mt-1">
-          {blog?.content.substring(0, 250)}
-        </p>
+        <p
+          className="mb-6 text-base text-slate-500 mt-1"
+          dangerouslySetInnerHTML={{ __html: blog?.content.substring(0, 250) }}
+        ></p>
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
             <div
