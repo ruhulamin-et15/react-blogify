@@ -24,7 +24,11 @@ const BlogCard = ({ blog, setBlogs }) => {
 
   const handleSingleProfile = (event) => {
     event.stopPropagation();
-    navigate(`/profile/${blog?.author?.id}`);
+    if (auth?.user?.id === blog?.author?.id) {
+      navigate(`/profile`);
+    } else {
+      navigate(`/profile/${blog?.author?.id}`);
+    }
   };
 
   const handleShowAction = (event) => {
