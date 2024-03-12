@@ -74,7 +74,11 @@ const EditBlog = () => {
     imageUploadRef.current.click();
   };
 
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const navigate = useNavigate();
 
@@ -100,11 +104,9 @@ const EditBlog = () => {
   const handleTitleChange = (e) => {
     setEditBlog({ ...editBlog, title: e.target.value });
   };
-
   const handleTagsChange = (e) => {
     setEditBlog({ ...editBlog, tags: e.target.value });
   };
-
   const handleContentChange = (e) => {
     setEditBlog({ ...editBlog, content: e.target.value });
   };
@@ -149,9 +151,9 @@ const EditBlog = () => {
                 alt="thumbnail"
               />
             </Field>
-            <Field>
+            <Field error={errors.title}>
               <input
-                {...register("title")}
+                {...register("title", { required: "Title is Required!" })}
                 type="text"
                 value={editBlog?.title}
                 onChange={handleTitleChange}
@@ -160,9 +162,9 @@ const EditBlog = () => {
                 placeholder="Enter your blog title"
               />
             </Field>
-            <Field>
+            <Field error={errors.tags}>
               <input
-                {...register("tags")}
+                {...register("tags", { required: "Tags is Required!" })}
                 type="text"
                 value={editBlog?.tags}
                 onChange={handleTagsChange}
@@ -171,9 +173,9 @@ const EditBlog = () => {
                 placeholder="Your Comma Separated Tags Ex. JavaScript, React, Node, Express,"
               />
             </Field>
-            <Field>
+            <Field error={errors.content}>
               <textarea
-                {...register("content")}
+                {...register("content", { required: "Content is Required!" })}
                 id="content"
                 value={editBlog?.content}
                 onChange={handleContentChange}
@@ -182,6 +184,7 @@ const EditBlog = () => {
                 rows={8}
               />
             </Field>
+            <p>{errors?.root?.random?.message}</p>
             <Field>
               <button
                 type="submit"
