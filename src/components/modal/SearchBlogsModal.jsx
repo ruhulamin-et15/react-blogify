@@ -61,7 +61,7 @@ const SearchBlogsModal = ({ onClose }) => {
             className="w-full bg-transparent p-2 text-base text-white outline-none border-none rounded-lg focus:ring focus:ring-indigo-600"
           />
         </div>
-        <div className>
+        <div>
           <h3 className="text-slate-400 font-bold mt-6">Search Results</h3>
           <div className="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
             {searchResults.length !== 0 ? (

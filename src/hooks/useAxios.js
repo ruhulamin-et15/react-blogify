@@ -23,7 +23,7 @@ const useAxios = () => {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error.response.status === 403 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
@@ -34,10 +34,9 @@ const useAxios = () => {
                 refreshToken,
               }
             );
-            const { token } = response.data;
-            console.log(`new token ${token}`);
-            setAuth({ ...auth, authToken: token });
-            originalRequest.headers.Authorization = `Bearer ${token}`;
+            const { accessToken } = response.data;
+            setAuth({ ...auth, authToken: accessToken });
+            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
             return axios(originalRequest);
           } catch (error) {
             console.log(error);

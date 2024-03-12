@@ -54,7 +54,6 @@ const NewBlog = () => {
         `${import.meta.env.VITE_BASE_URL}/blogs`,
         formDataObj
       );
-      console.log(response.data.blog);
 
       if (response.status === 201) {
         dispatch({ type: actions.blog.BLOG_CREATED, data: response.data });
