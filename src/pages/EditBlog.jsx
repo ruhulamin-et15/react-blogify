@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { actions } from "../actions";
 import Field from "../components/Field";
@@ -10,22 +10,39 @@ import useTitle from "../hooks/useTitle";
 
 const EditBlog = () => {
   useTitle("Edit Blog | Learn with Sumit");
-  const location = useLocation();
-  const { blog } = location.state;
   const { id } = useParams();
   const imageUploadRef = useRef();
   const { dispatch } = useBlog();
   const { api } = useAxios();
+  const [imagePreview, setImagePreview] = useState();
 
   const [editBlog, setEditBlog] = useState({
-    title: blog?.title || "",
-    tags: blog?.tags || "",
-    content: blog?.content || "",
+    title: "",
+    tags: "",
+    content: "",
   });
 
-  const [imagePreview, setImagePreview] = useState(
-    `${import.meta.env.VITE_BASE_URL}/uploads/blog/${blog?.thumbnail}`
-  );
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await api.get(
+          `${import.meta.env.VITE_BASE_URL}/blogs/${id}`
+        );
+        const blogData = response.data;
+        setEditBlog({
+          title: blogData.title || "",
+          tags: blogData.tags || "",
+          content: blogData.content || "",
+        });
+        setImagePreview(
+          `${import.meta.env.VITE_BASE_URL}/uploads/blog/${blogData.thumbnail}`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBlog();
+  }, [api, id]);
 
   const updateImageDisplay = async () => {
     dispatch({ type: actions.blog.DATA_FETCHING });
@@ -57,11 +74,7 @@ const EditBlog = () => {
     imageUploadRef.current.click();
   };
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
 
   const navigate = useNavigate();
 
@@ -136,9 +149,9 @@ const EditBlog = () => {
                 alt="thumbnail"
               />
             </Field>
-            <Field error={errors.title}>
+            <Field>
               <input
-                {...register("title", { required: "Title is Required!" })}
+                {...register("title")}
                 type="text"
                 value={editBlog?.title}
                 onChange={handleTitleChange}
@@ -147,9 +160,9 @@ const EditBlog = () => {
                 placeholder="Enter your blog title"
               />
             </Field>
-            <Field error={errors.tags}>
+            <Field>
               <input
-                {...register("tags", { required: "Tags is Required!" })}
+                {...register("tags")}
                 type="text"
                 value={editBlog?.tags}
                 onChange={handleTagsChange}
@@ -158,9 +171,9 @@ const EditBlog = () => {
                 placeholder="Your Comma Separated Tags Ex. JavaScript, React, Node, Express,"
               />
             </Field>
-            <Field error={errors.content}>
+            <Field>
               <textarea
-                {...register("content", { required: "Content is Required!" })}
+                {...register("content")}
                 id="content"
                 value={editBlog?.content}
                 onChange={handleContentChange}
@@ -169,7 +182,6 @@ const EditBlog = () => {
                 rows={8}
               />
             </Field>
-            <p>{errors?.root?.random?.message}</p>
             <Field>
               <button
                 type="submit"

@@ -36,9 +36,9 @@ const BlogCard = ({ blog, setBlogs }) => {
     setShowAction(!showAction);
   };
 
-  const handleEdit = (event, blog) => {
+  const handleEditBlog = (event, blog) => {
     event.stopPropagation();
-    navigate(`/edit-blog/${blog?.id}`, { state: { blog } });
+    navigate(`/edit-blog/${blog?.id}`);
   };
 
   const handleDeleteModalShow = (e) => {
@@ -111,7 +111,7 @@ const BlogCard = ({ blog, setBlogs }) => {
             {showAction && (
               <div className="action-modal-container">
                 <button
-                  onClick={(event) => handleEdit(event, blog)}
+                  onClick={(event) => handleEditBlog(event, blog)}
                   className="action-menu-item hover:text-lwsGreen"
                 >
                   <img src={EditIcon} alt="Edit" />
