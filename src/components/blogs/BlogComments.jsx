@@ -64,7 +64,10 @@ const BlogComments = ({ blog, updatedBlog }) => {
         </h2>
         {auth?.authToken ? (
           <div className="flex items -center space-x-4">
-            <div className="avater-img bg-indigo-600 text-white">
+            <div
+              className="avater-img bg-indigo-600 text-white cursor-pointer"
+              onClick={() => navigate(`/profile`)}
+            >
               <>
                 {auth.user.avatar === null ? (
                   <span>{auth.user.firstName.charAt(0)}</span>
