@@ -9,6 +9,7 @@ const SingleProfile = () => {
   const [userInfo, setUserInfo] = useState(null);
   useTitle(`${userInfo?.firstName} ${userInfo?.lastName} | Learn with Sumit`);
   const [loading, setLoading] = useState(false);
+  console.log(userInfo);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -64,12 +65,18 @@ const SingleProfile = () => {
           <div className="w-3/4 border-b border-[#3F3F3F] py-6 lg:py-8" />
         </div>
         <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">Blogs</h4>
-        <div className="my-6 space-y-4">
-          {userInfo &&
-            userInfo.blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))}
-        </div>
+        {userInfo?.blogs?.length === 0 ? (
+          <div className="flex flex-col items-center justify-center border border-gray-600 mt-2 h-[150px] w-3/4 mx-auto rounded-md">
+            <p className="text-2xl">No blogs available this user</p>
+          </div>
+        ) : (
+          <div className="my-6 space-y-4">
+            {userInfo &&
+              userInfo.blogs.map((blog) => (
+                <BlogCard key={blog.id} blog={blog} />
+              ))}
+          </div>
+        )}
       </div>
     </main>
   );

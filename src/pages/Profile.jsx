@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { actions } from "../actions";
-
 import MyBlogs from "../components/profile/MyBlogs";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import { useAuth } from "../hooks/useAuth";
