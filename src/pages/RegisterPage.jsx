@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import useTitle from "../hooks/useTitle";
 const RegisterPage = () => {
   useTitle("Registration | Learn with Sumit");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -17,6 +19,7 @@ const RegisterPage = () => {
   } = useForm();
 
   const submitForm = async (formData) => {
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/auth/register`,
@@ -32,6 +35,8 @@ const RegisterPage = () => {
         type: "random",
         message: `Something went wrong ${error.message}`,
       });
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -95,9 +100,11 @@ const RegisterPage = () => {
             <Field>
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                className={`w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition-all duration-200 ${
+                  loading && "opacity-50 cursor-not-allowed"
+                }`}
               >
-                Create Account
+                {loading ? "Creating Account" : "Create Account"}
               </button>
             </Field>
             <p className="text-center">

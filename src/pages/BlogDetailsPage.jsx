@@ -23,16 +23,15 @@ const BlogDetailsPage = () => {
   const [blog, setBlog] = useState();
   const commentRef = useRef(null);
   const renderPortal = usePortal();
-
-  const updatedBlog = (updatedComments) => {
-    setBlog(updatedComments);
-  };
-
   const isMe = auth.authToken;
   const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(true);
   const [favourite, setFavourite] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const updatedBlog = (updatedComments) => {
+    setBlog(updatedComments);
+  };
 
   useEffect(() => {
     const fetchBlogDetails = async () => {

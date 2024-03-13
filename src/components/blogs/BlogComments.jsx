@@ -17,7 +17,6 @@ const BlogComments = ({ blog, updatedBlog }) => {
   const navigate = useNavigate();
   const lastCommentRef = useRef(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
   const { handleSubmit, register, setValue } = useForm();
 
   const submitComment = async (formData) => {

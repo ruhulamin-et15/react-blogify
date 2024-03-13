@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { actions } from "../actions";
 import Field from "../components/Field";
+import CircleLoader from "../components/loader/CircleLoader";
 import useAxios from "../hooks/useAxios";
 import useBlog from "../hooks/useBlog";
 import useTitle from "../hooks/useTitle";
@@ -15,6 +16,8 @@ const EditBlog = () => {
   const { dispatch } = useBlog();
   const { api } = useAxios();
   const [imagePreview, setImagePreview] = useState();
+  const [loading, setLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
 
   const [editBlog, setEditBlog] = useState({
     title: "",
@@ -24,6 +27,7 @@ const EditBlog = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
+      setLoading(true);
       try {
         const response = await api.get(
           `${import.meta.env.VITE_BASE_URL}/blogs/${id}`
@@ -39,6 +43,8 @@ const EditBlog = () => {
         );
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBlog();
@@ -83,6 +89,7 @@ const EditBlog = () => {
   const navigate = useNavigate();
 
   const submitForm = async (formData) => {
+    setUpdateLoading(true);
     setEditBlog(formData);
     dispatch({ type: actions.blog.DATA_FETCHING });
     try {
@@ -98,6 +105,8 @@ const EditBlog = () => {
     } catch (error) {
       console.log(error);
       dispatch({ type: actions.blog.DATA_FETCH_ERROR, error: error.message });
+    } finally {
+      setUpdateLoading(false);
     }
   };
 
@@ -110,6 +119,10 @@ const EditBlog = () => {
   const handleContentChange = (e) => {
     setEditBlog({ ...editBlog, content: e.target.value });
   };
+
+  if (loading) {
+    return <CircleLoader />;
+  }
 
   return (
     <main>
@@ -188,9 +201,12 @@ const EditBlog = () => {
             <Field>
               <button
                 type="submit"
-                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                disabled={updateLoading}
+                className={`bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200 ${
+                  updateLoading && "opacity-50 cursor-not-allowed"
+                }`}
               >
-                Update Blog
+                {updateLoading ? "Blog Updating..." : "Update Blog"}
               </button>
             </Field>
           </form>

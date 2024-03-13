@@ -11,7 +11,7 @@ import useTitle from "../hooks/useTitle";
 const NewBlog = () => {
   useTitle("Blog Create | Learn with Sumit");
   const imageUploadRef = useRef();
-  const { dispatch } = useBlog();
+  const { state, dispatch } = useBlog();
   const { api } = useAxios();
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -140,9 +140,12 @@ const NewBlog = () => {
             <Field>
               <button
                 type="submit"
-                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                disabled={state.loading}
+                className={`bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200 ${
+                  state.loading && "opacity-50 cursor-not-allowed"
+                }`}
               >
-                Create Blog
+                {state.loading ? "Blog Creating..." : "Create Blog"}
               </button>
             </Field>
           </form>

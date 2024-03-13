@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import useTitle from "../hooks/useTitle";
 const LoginPage = () => {
   useTitle("Login Page | Learn with Sumit");
   const { setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const {
@@ -19,6 +21,7 @@ const LoginPage = () => {
   } = useForm();
 
   const submitForm = async (formData) => {
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/auth/login`,
@@ -41,6 +44,8 @@ const LoginPage = () => {
         type: "random",
         message: `User with email ${formData.email} is not found`,
       });
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -81,9 +86,12 @@ const LoginPage = () => {
             <Field>
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                disabled={loading}
+                className={`w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition-all duration-200 ${
+                  loading && "opacity-50 cursor-not-allowed"
+                }`}
               >
-                Login
+                {loading ? "Loading..." : "Login"}
               </button>
             </Field>
             <p className="text-center">
