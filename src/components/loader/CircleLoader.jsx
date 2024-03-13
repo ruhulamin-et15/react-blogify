@@ -26,9 +26,13 @@ const textStyle = {
 };
 
 const spinTransition = {
-  loop: Infinity,
-  ease: "linear",
-  duration: 1,
+  rotate: {
+    from: 0,
+    to: 360,
+    duration: 1,
+    repeat: Infinity,
+    ease: "linear",
+  },
 };
 
 export default function CircleLoader() {
