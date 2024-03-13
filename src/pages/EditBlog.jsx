@@ -16,7 +16,7 @@ const EditBlog = () => {
   const { dispatch } = useBlog();
   const { api } = useAxios();
   const [imagePreview, setImagePreview] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [updateLoading, setUpdateLoading] = useState(false);
 
   const [editBlog, setEditBlog] = useState({
@@ -27,7 +27,6 @@ const EditBlog = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
-      setLoading(true);
       try {
         const response = await api.get(
           `${import.meta.env.VITE_BASE_URL}/blogs/${id}`
