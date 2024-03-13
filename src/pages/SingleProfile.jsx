@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogCard from "../components/blogs/BlogCard";
+import CircleLoader from "../components/loader/CircleLoader";
 import useTitle from "../hooks/useTitle";
 
 const SingleProfile = () => {
@@ -28,11 +29,11 @@ const SingleProfile = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="text-center">Loading Profile Details...</div>;
+    return <CircleLoader />;
   }
 
   return (
-    <main className="mx-auto max-w-[1020px] py-8">
+    <main className="mx-auto max-w-[1020px] py-8 min-h-screen">
       <div className="container">
         <div className="flex flex-col items-center py-8 text-center">
           <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">

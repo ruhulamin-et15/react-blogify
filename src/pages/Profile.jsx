@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { actions } from "../actions";
+import CircleLoader from "../components/loader/CircleLoader";
 import MyBlogs from "../components/profile/MyBlogs";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import { useAuth } from "../hooks/useAuth";
@@ -13,7 +14,7 @@ const Profile = () => {
     `${auth?.user?.firstName} ${auth?.user?.lastName} | Learn with Sumit`
   );
   const { api } = useAxios();
-  const { dispatch } = useProfile();
+  const { state, dispatch } = useProfile();
 
   useEffect(() => {
     dispatch({ type: actions.profile.DATA_FETCHING }); //loading state
@@ -37,8 +38,12 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+  if (state.loading) {
+    return <CircleLoader />;
+  }
+
   return (
-    <main className="mx-auto max-w-[1020px] py-8">
+    <main className="mx-auto max-w-[1020px] py-8 min-h-screen">
       <div className="container">
         <ProfileInfo />
         <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">Blogs</h4>

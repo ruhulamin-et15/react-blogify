@@ -8,6 +8,7 @@ import LikeIcon from "../assets/icons/like.svg";
 import LikedIcon from "../assets/icons/liked.svg";
 import BlogComments from "../components/blogs/BlogComments";
 import BlogDetails from "../components/blogs/BlogDetails";
+import CircleLoader from "../components/loader/CircleLoader";
 import LoginRegisterModal from "../components/modal/LoginRegisterModal";
 import { useAuth } from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
@@ -111,7 +112,7 @@ const BlogDetailsPage = () => {
   };
 
   if (loading) {
-    return <div className="text-center">Blog Details Loading...</div>;
+    return <CircleLoader />;
   }
 
   return (
